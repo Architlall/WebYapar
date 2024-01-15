@@ -1,13 +1,16 @@
 require("dotenv").config();
 var http = require("http");
 var express = require("express");
+var path = require("path");
 const bodyParser = require("body-parser");
 const hostname = "localhost";
+const { connectDB } = require("./config/db");
 const port = 5000;
 const app = express();
 
 const cors = require("cors");
 
+connectDB();
 
 
 const server = http.createServer(app);
