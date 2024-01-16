@@ -80,4 +80,62 @@ router.get("/admin/users", (req, res) => {
   }).limit(2); // Limit to two users as specified
 });
 
+
+
+router.post('/admin/approval-review/:userId', async (req, res) => {
+    // Handle the admin's decision on profile updates
+    try {
+      const user = await User.findById(req.params.userId);
+  
+      if (req.body.approval == true) {
+        user.approvalStatus = 'Accepted by Admin';
+      } else {
+        user.approvalStatus = 'Not Accepted by Admin';
+      }
+  
+      // Save the updated user
+      await user.save();
+  
+      res.json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+
+  router.post('/admin/default-mode-reversion/:userId', async (req, res) => {
+    // Handle reverting the user's information to the default state
+    try {
+      const user = await User.findById(req.params.userId);
+  
+      // Revert user information to default state
+      user.name = '';
+      user.photo = '';
+      user.approvalStatus = '';
+  
+      // Save the updated user
+      await user.save();
+  
+      res.json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+
+
+  router.post('/admin/delete-user/:userId', async (req, res) => {
+    // Handle deleting the user's entire row of data, irrespective of approval status
+    try {
+      // Find and delete the user
+      await User.findByIdAndDelete(req.params.userId);
+  
+      res.redirect('/admin/dashboard');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    });
 module.exports = router;
