@@ -32,11 +32,13 @@ const router = express.Router();
 const Admin = require("../models/admin");
 const User = require("../models/users");
 
-router.post("/admin/create-user", async (req, res) => {
-  // Handle form submission to create a new user
+router.post("/admin/create-user/", async (req, res) => {
+  
+//   Handle form submission to create a new user
   try {
     // Create new user and save to the database
-    const newUser = new User(req.body.user);
+    console.log(req.body);
+    const newUser = new User(req.body);
     await newUser.save();
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
@@ -68,74 +70,71 @@ router.get("/admin/user/:userId", async (req, res) => {
 // User Data Table
 router.get("/admin/users", (req, res) => {
   // Fetch users and render the table
-  User.find({}, (err, users) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
-    } else {
-      res.json({
-        users,
-      });
-    }
-  }).limit(2); // Limit to two users as specified
+  User.find({}).limit(2)
+    .then((users) => {
+      if (!users) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+      } else {
+        res.json({
+          users
+        });
+      }
+    })
+   
 });
 
+router.post("/admin/approval-review/:userId", async (req, res) => {
+  // Handle the admin's decision on profile updates
+  try {
+    const user = await User.findById(req.params.userId);
 
-
-router.post('/admin/approval-review/:userId', async (req, res) => {
-    // Handle the admin's decision on profile updates
-    try {
-      const user = await User.findById(req.params.userId);
-  
-      if (req.body.approval == true) {
-        user.approvalStatus = 'Accepted by Admin';
-      } else {
-        user.approvalStatus = 'Not Accepted by Admin';
-      }
-  
-      // Save the updated user
-      await user.save();
-  
-      res.json(user);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+    if (req.body.approval == true) {
+      user.approvalStatus = "Accepted by Admin";
+    } else {
+      user.approvalStatus = "Not Accepted by Admin";
     }
-  });
 
+    // Save the updated user
+    await user.save();
 
-  router.post('/admin/default-mode-reversion/:userId', async (req, res) => {
-    // Handle reverting the user's information to the default state
-    try {
-      const user = await User.findById(req.params.userId);
-  
-      // Revert user information to default state
-      user.name = '';
-      user.photo = '';
-      user.approvalStatus = '';
-  
-      // Save the updated user
-      await user.save();
-  
-      res.json(user);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
+router.post("/admin/default-mode-reversion/:userId", async (req, res) => {
+  // Handle reverting the user's information to the default state
+  try {
+    const user = await User.findById(req.params.userId);
 
+    // Revert user information to default state
+    user.name = "";
+    user.photo = "";
+    user.approvalStatus = "";
 
-  router.post('/admin/delete-user/:userId', async (req, res) => {
-    // Handle deleting the user's entire row of data, irrespective of approval status
-    try {
-      // Find and delete the user
-      await User.findByIdAndDelete(req.params.userId);
-  
-      res.redirect('/admin/dashboard');
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-      }
-    });
+    // Save the updated user
+    await user.save();
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/admin/delete-user/:userId", async (req, res) => {
+  // Handle deleting the user's entire row of data, irrespective of approval status
+  try {
+    // Find and delete the user
+    await User.findByIdAndDelete(req.params.userId);
+
+    res.redirect("/admin/dashboard");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 module.exports = router;

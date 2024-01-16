@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <!-- Left Section: Create User -->
+            <div class="col-md-6 bg-light d-flex align-items-center justify-content-center">
+                <form id="create-user-form" class="text-center">
+                    <h2>Create User</h2>
+                    <div class="form-group">
+                        <label for="createUserId">User ID:</label>
+                        <input type="text" id="createUserId" name="createUserId" class="form-control mb-3" placeholder="User ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="createPassword">Password:</label>
+                        <input type="password" id="createPassword" name="createPassword" class="form-control mb-3" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">Create</button>
+                </form>
+            </div>
+
+            <!-- Right Section: View User -->
+            <div class="col-md-6 bg-light d-flex align-items-center justify-content-center">
+                <form id="view-user-form" class="text-center">
+                    <h2>View User</h2>
+                    <div class="form-group">
+                        <label for="viewUserId">User ID:</label>
+                        <input type="text" id="viewUserId" name="viewUserId" class="form-control mb-3" placeholder="User ID" required>
+                    </div>
+                    <a href="table.html" class="btn btn-primary btn-block">View</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

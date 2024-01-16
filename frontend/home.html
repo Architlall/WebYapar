@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="home.css">
+    <title>Admin Login</title>
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-8 bg-primary d-flex align-items-center justify-content-center">
+                <img src="your_logo.png" alt="Logo" class="img-fluid">
+            </div>
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                <form id="login-form" class="text-center" action="dashboard.html">
+                    <label for="userId" class="sr-only">User ID:</label>
+                    <input type="text" id="userId" name="userId" class="form-control mb-3" placeholder="User ID" required>
+
+                    <label for="password" class="sr-only">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Password" required>
+
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

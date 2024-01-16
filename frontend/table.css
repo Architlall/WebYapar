@@ -1,0 +1,33 @@
+/* Add this to the existing styles or create a new file if needed */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.table {
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
